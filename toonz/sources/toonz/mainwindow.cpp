@@ -570,6 +570,8 @@ centralWidget->setLayout(centralWidgetLayout);*/
   setCommandHandler("MI_NewRasterLevel", this,
                     &MainWindow::onNewRasterLevelButtonPressed);
   setCommandHandler(MI_ClearCacheFolder, this, &MainWindow::clearCacheFolder);
+  setCommandHandler("MI_NewAssistantLevel", this,
+                    &MainWindow::onNewAssistantLevelButtonPressed);
   // remove ffmpegCache if still exists from crashed exit
   QString ffmpegCachePath =
       ToonzFolder::getCacheRootFolder().getQString() + "//ffmpeg";
@@ -2498,6 +2500,8 @@ void MainWindow::defineActions() {
   createToolAction(T_Plastic, "plastic", tr("Plastic Tool"), "X");
   createToolAction(T_Ruler, "ruler", tr("Ruler Tool"), "");
   createToolAction(T_Finger, "finger", tr("Finger Tool"), "");
+  createToolAction(T_EditAssistants, "tool_assistant", tr("Assistant Tool"),
+                   "");
 
   createViewerAction(V_ZoomIn, tr("Zoom In"), "+");
   createViewerAction(V_ZoomOut, tr("Zoom Out"), "-");
@@ -3494,6 +3498,15 @@ void MainWindow::clearCacheFolder() {
           tr("Can't delete %1 : ").arg(fileToBeRemoved.getQString()));
     }
   }
+}
+
+//-----------------------------------------------------------------------------
+
+void MainWindow::onNewAssistantLevelButtonPressed() {
+  int defaultLevelType = Preferences::instance()->getDefLevelType();
+  Preferences::instance()->setValue(DefLevelType, META_XSHLEVEL);
+  CommandManager::instance()->execute("MI_NewLevel");
+  Preferences::instance()->setValue(DefLevelType, defaultLevelType);
 }
 
 //-----------------------------------------------------------------------------
