@@ -53,7 +53,7 @@ after_build:
 
     mkdir "%CONFIGURATION%\OpenToonz stuff"
 
-    xcopy /Y /E ..\..\stuff "%CONFIGURATION%\OpenToonz stuff"
+    xcopy /Y /E ..\..\stuff "%CONFIGURATION%\Opentoonz\OpenToonz stuff"
     
 artifacts:
 - path: toonz\$(PLATFORM)\$(CONFIGURATION)
